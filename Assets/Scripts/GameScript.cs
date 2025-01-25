@@ -9,7 +9,7 @@ public class GameScript : MonoBehaviour
     public List<GlassScript> glassList;
     public List<Material> colorList;
     public bool onClick;
-
+    public GameObject starbucks;
     private void Awake()
     {
         Instance = this;
@@ -32,23 +32,25 @@ public class GameScript : MonoBehaviour
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 10, 1 << 6))
             {
 
-                // Bardaða týklandý
+                // Bardaï¿½a tï¿½klandï¿½
                 if (selectedGlass == null)
                 {
-                    // Seçili bardak yoksa, seçili bardaðý ayarla
+                    // Seï¿½ili bardak yoksa, seï¿½ili bardaï¿½ï¿½ ayarla
                     selectedGlass = hit.transform;
                     oldGlass = selectedGlass;
                     selectedGlass.GetComponent<GlassScript>().isOpen = true;
                 }
                 else if (selectedGlass == hit.transform)
                 {
-                    // Seçili bardaða tekrar týklandý, bardaðý eski yerine getir
+                    return;
+
+                    // Seï¿½ili bardaï¿½a tekrar tï¿½klandï¿½, bardaï¿½ï¿½ eski yerine getir
                     selectedGlass.GetComponent<GlassScript>().isOpen = false;
                     selectedGlass = null;
                 }
                 else if (selectedGlass)
                 {
-                    // Baþka bir bardaða týklandý, önceki seçili bardaðý eski yerine getir
+                    // Baï¿½ka bir bardaï¿½a tï¿½klandï¿½, ï¿½nceki seï¿½ili bardaï¿½ï¿½ eski yerine getir
                     // selectedGlass.GetComponent<GlassScript>().isOpen = false;
                     selectedGlass = hit.transform;
                     otherGlass = selectedGlass;
@@ -62,16 +64,32 @@ public class GameScript : MonoBehaviour
         {
             onClick = false;
         }
+        if (selectedGlass)
+        {
+            if (selectedGlass.GetComponent<GlassScript>().glassID == starbucks.GetComponent<StarbuckScript>().starbucksID)
+            {
+                selectedGlass.GetComponent<GlassScript>().isOpen = true;
+            }
+            else
+            {
+                selectedGlass.GetComponent<GlassScript>().isOpen = false;
+                selectedGlass.GetComponent<Animator>().SetTrigger("shake");
+                selectedGlass = null;
+            }
+        }
 
         if (oldGlass && otherGlass)
         {
-            if (oldGlass.GetComponent<GlassScript>().isOpen && otherGlass.GetComponent<GlassScript>().isOpen && otherGlass.GetComponent<GlassScript>().glassID == oldGlass.GetComponent<GlassScript>().glassID &&
+            if (oldGlass.GetComponent<GlassScript>().isOpen && otherGlass.GetComponent<GlassScript>().isOpen
+            && otherGlass.GetComponent<GlassScript>().glassID == oldGlass.GetComponent<GlassScript>().glassID &&
                 !oldGlass.GetComponent<GlassScript>().occupied && !otherGlass.GetComponent<GlassScript>().occupied)
             {
                 oldGlass.GetComponent<GlassScript>().merge = true;
                 otherGlass.GetComponent<GlassScript>().merge = true;
                 if (oldGlass.GetComponent<GlassScript>().merge == true && otherGlass.GetComponent<GlassScript>().merge == true)
                 {
+
+                    starbucks.GetComponent<Animator>().SetTrigger("done");
                     otherGlass = null;
                     oldGlass = null;
                     selectedGlass = null;
@@ -99,7 +117,7 @@ public class GameScript : MonoBehaviour
         // }
         if (glassList.Count <= 0)
         {
-            UIManager.Instance.CheckSucces(0);
+            UIManager.Instance.ShowSuccesPanel2();
         }
     }
 

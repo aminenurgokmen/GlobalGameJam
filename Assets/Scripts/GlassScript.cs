@@ -21,6 +21,7 @@ public class GlassScript : MonoBehaviour
     private Vector3 originalPosition;
     public int glassID;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,9 +44,10 @@ public class GlassScript : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.up*.5f, out hit, .5f))
+        if (Physics.Raycast(transform.position, Vector3.up * .05f, out hit, .05f, 1 << 7))
         {
-            Debug.Log("Üstünde bir þey var: " + hit.collider.gameObject.name);
+            Debug.Log("ï¿½stï¿½nde bir ï¿½ey var: " + hit.collider.gameObject.name);
+            Debug.DrawRay(transform.position, Vector3.up * .05f, Color.red);
             occupied = true;
         }
         else
@@ -74,15 +76,19 @@ public class GlassScript : MonoBehaviour
                             dly = 0;
                             particle.Remove(particle[i]);
                             GetComponent<MeshRenderer>().enabled = false;
+                            GetComponent<MeshCollider>().enabled = false;
+
                             transform.GetChild(3).gameObject.SetActive(true);
-                            Destroy(transform.GetChild(3).gameObject, 3);
+
+                            Destroy(transform.GetChild(3).gameObject, 3); // camlar
                         }
                     }
                 }
                 dly += Time.deltaTime * 2;
                 if (isOpen && merge)
                 {
-                    Destroy(gameObject, 4);
+
+                    Destroy(gameObject, 6);
 
                 }
 
@@ -98,7 +104,7 @@ public class GlassScript : MonoBehaviour
                         particle[i].GetComponent<Rigidbody>().isKinematic = true;
                         particle[i].transform.position = Vector3.Lerp(particle[i].transform.position, pivot.transform.position, Time.deltaTime * 5);
 
-                        Destroy(particle[i], .5f);
+                        // Destroy(particle[i], .5f);
                     }
                     if (!particle[i])
                     {
@@ -127,17 +133,19 @@ public class GlassScript : MonoBehaviour
         }
         else if (GameScript.Instance.selectedGlass && GameScript.Instance.onClick && GameScript.Instance.selectedGlass.GetComponent<GlassScript>().occupied)
         {
-            Debug.Log("açýlmýyo");
+            Debug.Log("aï¿½ï¿½lmï¿½yo");
             isOpen = false;
             StartCoroutine(GameScript.Instance.selectedGlass.GetComponent<GlassScript>().Shake());
             GameScript.Instance.selectedGlass = null;
+            //GameScript.Instance.oldGlass = null;
+
         }
     }
     IEnumerator Shake()
     {
         float elapsedTime = 0f;
 
-        while (elapsedTime < 0.2f) 
+        while (elapsedTime < 0.2f)
         {
             float offsetX = Mathf.PerlinNoise(Time.time * shakeSpeed, 0) * 2 - 1;
             Vector3 shakeOffset = new Vector3(offsetX, 0, 0) * shakeAmount;
@@ -148,7 +156,7 @@ public class GlassScript : MonoBehaviour
             yield return null;
         }
 
-        transform.position = originalPosition; 
+        transform.position = originalPosition;
     }
     public void CantOpen()
     {
