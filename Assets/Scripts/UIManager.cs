@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    public GameObject succes,fail;
+    public GameObject succes, fail;
     float newDly;
     bool callSucces, callFail;
     public Text text;
-    int i=1;
+    int i = 1;
 
     private void Awake()
     {
@@ -20,47 +20,29 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            succes.gameObject.SetActive(false);
-
-        }
         if (callFail || callSucces)
         {
-            newDly += Time.deltaTime*2;
+            newDly += Time.deltaTime * 2;
             Debug.Log(newDly);
 
         }
         LevelInfo();
 
     }
-    public void CheckSucces(float dly)
+    public void ShowSuccesPanel2()
     {
-        callSucces = true;
-        if (newDly>dly)
-        {
-            succes.gameObject.SetActive(true);
-            newDly = 0;
-        }
-     
-        return;
+        StartCoroutine(ShowSuccesPanel());
     }
-    public void CheckFail(float delay)
+    IEnumerator ShowSuccesPanel()
     {
-        callFail = true;
-        if (newDly > delay)
-        {
-            Debug.Log("faillll");
-            fail.gameObject.SetActive(true);
-            newDly = 0;
-        }
-        return;
+        yield return new WaitForSeconds(1f);
+        succes.SetActive(true);
     }
 
     public void LoadNextScene()

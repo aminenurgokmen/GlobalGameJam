@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4111623847127403203}
   - component: {fileID: 4111623847127403202}
   - component: {fileID: -1467576485029233733}
+  - component: {fileID: 2154138967298908468}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4111623847127403201}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4111623847127403203
 Camera:
@@ -48,9 +49,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -98,13 +107,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedGlass: {fileID: 0}
-  openGlass: {fileID: 0}
   otherGlass: {fileID: 0}
+  oldGlass: {fileID: 0}
   glassList: []
   colorList:
-  - {fileID: 2100000, guid: c6c142e3181a3c1448260d8756fef9b0, type: 2}
-  - {fileID: 2100000, guid: fdcf1c7b000426c408c919d2dbf9e378, type: 2}
-  - {fileID: 2100000, guid: c88e105c037682040a26a601cf69a98a, type: 2}
+  - {fileID: 2100000, guid: 29fd59b49ad6a9f42aad55c67ea572e7, type: 2}
+  - {fileID: 2100000, guid: 69d6773ef2d79504b932f2afb42c66a7, type: 2}
+  - {fileID: 2100000, guid: b1351a8ba99b0ab44b02bd0d0556a21a, type: 2}
   - {fileID: 2100000, guid: ae0d3a2bb7be4974f9799fec77adfe45, type: 2}
   - {fileID: 2100000, guid: c742347863dac6340aa14dce81d9ef28, type: 2}
   - {fileID: 2100000, guid: b3509296c792fc14dbbe328eac98b141, type: 2}
@@ -114,3 +123,49 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 27d428b6dc21f2a4088cf524a08d608e, type: 2}
   - {fileID: 2100000, guid: b1a20a2f6701a57468704b01a200abc4, type: 2}
   - {fileID: 2100000, guid: f218fe20a0f86eb4ebada5c2852daf56, type: 2}
+  onClick: 0
+  starbucks: {fileID: 0}
+--- !u!114 &2154138967298908468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111623847127403201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
