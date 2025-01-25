@@ -281,6 +281,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starbucksID: 0
+  moveDistance: 1
+  moveDuration: 1
+  moveSpeed: 1
 --- !u!4 &370203169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8704972198561157673, guid: 5655d149bfb9d95448bdee0ad69ee730, type: 3}
@@ -1618,6 +1621,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starbucksID: 3
+  moveDistance: 1
+  moveDuration: 1
+  moveSpeed: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
