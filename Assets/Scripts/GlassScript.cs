@@ -96,6 +96,7 @@ public class GlassScript : MonoBehaviour
 
             else
             {
+                return;
                 transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, currentYPos, transform.position.z), Time.deltaTime * 5);
                 for (int i = 0; i < particle.Count; i++)
                 {
@@ -104,7 +105,7 @@ public class GlassScript : MonoBehaviour
                         particle[i].GetComponent<Rigidbody>().isKinematic = true;
                         particle[i].transform.position = Vector3.Lerp(particle[i].transform.position, pivot.transform.position, Time.deltaTime * 5);
 
-                        // Destroy(particle[i], .5f);
+                        Destroy(particle[i], .5f);
                     }
                     if (!particle[i])
                     {
@@ -133,35 +134,36 @@ public class GlassScript : MonoBehaviour
         }
         else if (GameScript.Instance.selectedGlass && GameScript.Instance.onClick && GameScript.Instance.selectedGlass.GetComponent<GlassScript>().occupied)
         {
-            Debug.Log("a��lm�yo");
-            isOpen = false;
-            StartCoroutine(GameScript.Instance.selectedGlass.GetComponent<GlassScript>().Shake());
+            //Debug.Log("a��lm�yo");
+            //isOpen = false;
+            ////StartCoroutine(GameScript.Instance.selectedGlass.GetComponent<GlassScript>().Shake());
+            //GameScript.Instance.selectedGlass.GetComponent<Animator>().SetTrigger("shake");
+            //GameScript.Instance.selectedGlass = null;
+            ////GameScript.Instance.oldGlass = null;
+
+            GameScript.Instance.selectedGlass.GetComponent<GlassScript>().isOpen = false;
+            GameScript.Instance.selectedGlass.GetComponent<Animator>().SetTrigger("shake");
             GameScript.Instance.selectedGlass = null;
-            //GameScript.Instance.oldGlass = null;
 
         }
     }
-    IEnumerator Shake()
-    {
-        float elapsedTime = 0f;
+    //IEnumerator Shake()
+    //{
+    //    float elapsedTime = 0f;
 
-        while (elapsedTime < 0.2f)
-        {
-            float offsetX = Mathf.PerlinNoise(Time.time * shakeSpeed, 0) * 2 - 1;
-            Vector3 shakeOffset = new Vector3(offsetX, 0, 0) * shakeAmount;
+    //    while (elapsedTime < 0.2f)
+    //    {
+    //        float offsetX = Mathf.PerlinNoise(Time.time * shakeSpeed, 0) * 2 - 1;
+    //        Vector3 shakeOffset = new Vector3(offsetX, 0, 0) * shakeAmount;
 
-            transform.position = originalPosition + shakeOffset;
+    //        transform.position = originalPosition + shakeOffset;
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        transform.position = originalPosition;
-    }
-    public void CantOpen()
-    {
-        isOpen = false;
-    }
+    //    transform.position = originalPosition;
+    //}
 
     public static implicit operator Transform(GlassScript v)
     {

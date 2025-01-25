@@ -377,6 +377,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: -1467576485029233733, guid: 3f10df87b26ca404aaeb94def74bd5bb, type: 3}
+      propertyPath: starbucksCups.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1467576485029233733, guid: 3f10df87b26ca404aaeb94def74bd5bb, type: 3}
       propertyPath: particleColors.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -384,6 +388,10 @@ PrefabInstance:
       propertyPath: selectedGlasses.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -1467576485029233733, guid: 3f10df87b26ca404aaeb94def74bd5bb, type: 3}
+      propertyPath: 'starbucksCups.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5688275412737454611}
     - target: {fileID: -1467576485029233733, guid: 3f10df87b26ca404aaeb94def74bd5bb, type: 3}
       propertyPath: 'particleColors.Array.data[0]'
       value: 
@@ -1000,6 +1008,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starbucksID: 0
+  moveDistance: 1
+  moveDuration: 1
+  moveSpeed: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

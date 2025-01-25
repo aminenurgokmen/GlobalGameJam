@@ -9,7 +9,11 @@ public class GameScript : MonoBehaviour
     public List<GlassScript> glassList;
     public List<Material> colorList;
     public bool onClick;
-    public GameObject starbucks;
+    // public GameObject starbucks;
+    public List<StarbuckScript> starbucksCups; // Sahnede birden fazla Starbucks olabilir
+    private int currentStarbucksIndex = 0;
+    public bool done;
+
     private void Awake()
     {
         Instance = this;
@@ -25,6 +29,17 @@ public class GameScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        glassList.RemoveAll(item => item == null);
+
+        if (glassList.Count <= 0)
+        {
+            UIManager.Instance.ShowSuccesPanel2();
+        }
+        if (currentStarbucksIndex >= starbucksCups.Count)
+        {
+            // Tüm bardaklar tamamlandı, belki bir kazandı paneli vs.
+            return;
+        }
         RaycastHit hit;
         if (Input.GetMouseButtonDown(0))
         {
@@ -64,15 +79,25 @@ public class GameScript : MonoBehaviour
         {
             onClick = false;
         }
+
+        // Once you have a selected glass, check if it matches any Starbucks
         if (selectedGlass)
         {
-            if (selectedGlass.GetComponent<GlassScript>().glassID == starbucks.GetComponent<StarbuckScript>().starbucksID)
+            var glassScript = selectedGlass.GetComponent<GlassScript>();
+
+            // O an doldurulması gereken Starbucks (sıralı)
+            var currentStarbucks = starbucksCups[currentStarbucksIndex];
+
+            // Eğer seçtiğimiz bardağın rengi, current Starbucks'ın ID’siyle eşleşiyorsa açılabilir
+            if (glassScript.glassID == currentStarbucks.starbucksID)
             {
-                selectedGlass.GetComponent<GlassScript>().isOpen = true;
+                // Renk uyuyor, bardağı açık tut
+                glassScript.isOpen = true;
             }
             else
             {
-                selectedGlass.GetComponent<GlassScript>().isOpen = false;
+                // Renk eşleşmiyorsa, shake animasyonu ve seçiliyi sıfırla
+                glassScript.isOpen = false;
                 selectedGlass.GetComponent<Animator>().SetTrigger("shake");
                 selectedGlass = null;
             }
@@ -80,45 +105,69 @@ public class GameScript : MonoBehaviour
 
         if (oldGlass && otherGlass)
         {
-            if (oldGlass.GetComponent<GlassScript>().isOpen && otherGlass.GetComponent<GlassScript>().isOpen
-            && otherGlass.GetComponent<GlassScript>().glassID == oldGlass.GetComponent<GlassScript>().glassID &&
-                !oldGlass.GetComponent<GlassScript>().occupied && !otherGlass.GetComponent<GlassScript>().occupied)
+            GlassScript oldGS = oldGlass.GetComponent<GlassScript>();
+            GlassScript otherGS = otherGlass.GetComponent<GlassScript>();
+
+            // İkisi de open ve ID'leri eşleşiyorsa merge
+            if (oldGS.isOpen && otherGS.isOpen &&
+                oldGS.glassID == otherGS.glassID &&
+                !oldGS.occupied && !otherGS.occupied)
             {
-                oldGlass.GetComponent<GlassScript>().merge = true;
-                otherGlass.GetComponent<GlassScript>().merge = true;
-                if (oldGlass.GetComponent<GlassScript>().merge == true && otherGlass.GetComponent<GlassScript>().merge == true)
+                oldGS.merge = true;
+                otherGS.merge = true;
+
+                if (oldGS.merge && otherGS.merge)
                 {
 
-                    starbucks.GetComponent<Animator>().SetTrigger("done");
+                    // Birleştirme tamam
+                    Debug.Log("Merge done!");
+
+                    // Burada “currentStarbucksIndex”i arttırabiliriz 
+                    // çünkü bu renk bardaklar tamamlandı.
+                    starbucksCups[currentStarbucksIndex]
+                        .GetComponent<Animator>()
+                        .SetTrigger("done");
+
+                    currentStarbucksIndex++; // Sıradaki Starbucks’a geç
+                                             // starbucksCups[currentStarbucksIndex].GetComponent<StarbuckScript>().isMoving = true;
+
+                    // Diğer değişkenleri sıfırla
                     otherGlass = null;
                     oldGlass = null;
                     selectedGlass = null;
-                }
 
+                    int moveCount = starbucksCups.Count;
+
+                    // currentStarbucksIndex’ten başlayıp moveCount kadar ilerle
+                    for (int offset = 0; offset < moveCount; offset++)
+                    {
+                        int targetIndex = currentStarbucksIndex + offset;
+
+                        // targetIndex dizin sınırlarını aşmıyorsa Move() çağır
+                        if (targetIndex < starbucksCups.Count)
+                        {
+                            starbucksCups[targetIndex]
+                                .GetComponent<StarbuckScript>()
+                                .Move();
+                        }
+                    }
+
+
+
+                }
             }
             else
             {
-                oldGlass.GetComponent<GlassScript>().isOpen = false;
-                otherGlass.GetComponent<GlassScript>().isOpen = false;
-                selectedGlass = otherGlass = oldGlass = null;
+                // Uymuyorsa kapat
+                oldGS.isOpen = false;
+                otherGS.isOpen = false;
+                selectedGlass = null;
+                otherGlass = null;
+                oldGlass = null;
             }
         }
 
-        glassList.RemoveAll(item => item == null);
 
-        // for (int i = 0; i < glassList.Count; i++)
-        // {
-        //     if (glassList[i].isOpen && glassList[(i + 1) % glassList.Count].isOpen && glassList[i].glassID == glassList[(i + 1) % glassList.Count].glassID && !glassList[(i + 1) % glassList.Count].occupied)
-        //     {
-        //         glassList[i].merge = true;
-        //         glassList[(i + 1) % glassList.Count].merge = true;
-        //         glassList.RemoveAll(item => item == null);
-        //     }
-        // }
-        if (glassList.Count <= 0)
-        {
-            UIManager.Instance.ShowSuccesPanel2();
-        }
     }
 
 
