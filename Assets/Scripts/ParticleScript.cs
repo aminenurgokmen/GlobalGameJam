@@ -7,6 +7,7 @@ public class ParticleScript : MonoBehaviour
     public bool onFloor;
     public GlassScript glasScript;
     float clampPos;
+    float _clampPos;
     public int colorID;
     float lerpValue;
     bool destroy;
@@ -16,6 +17,10 @@ public class ParticleScript : MonoBehaviour
     void Start()
     {
         clampPos = 2;
+        _clampPos = 4;
+
+
+
         originalScale = transform.localScale;
     }
 
@@ -24,7 +29,7 @@ public class ParticleScript : MonoBehaviour
     {
         lerpValue += Time.deltaTime * .1f;
 
-        var xPos = Mathf.Clamp(transform.position.x, -clampPos, clampPos);
+        var xPos = Mathf.Clamp(transform.position.x, -_clampPos, _clampPos);
         var zPos = Mathf.Clamp(transform.position.z, clampPos, clampPos * 2);
         transform.position = new Vector3(xPos, transform.position.y, zPos);
         if (glasScript.isOpen)
@@ -61,7 +66,7 @@ public class ParticleScript : MonoBehaviour
     }
     public IEnumerator DestroyParticles()
     {
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(5f);
         destroy = true;
         GetComponentInChildren<ParticleSystem>().Play();
         // Destroy(gameObject, 2f);
