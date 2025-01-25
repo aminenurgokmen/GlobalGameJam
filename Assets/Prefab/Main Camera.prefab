@@ -45,7 +45,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.6367924, g: 0.96562093, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -68,9 +68,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 56
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -124,7 +124,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b1a20a2f6701a57468704b01a200abc4, type: 2}
   - {fileID: 2100000, guid: f218fe20a0f86eb4ebada5c2852daf56, type: 2}
   onClick: 0
-  starbucks: {fileID: 0}
+  starbucksCups: []
+  done: 0
+  floor: {fileID: 0}
+  canClick: 1
 --- !u!114 &2154138967298908468
 MonoBehaviour:
   m_ObjectHideFlags: 0
