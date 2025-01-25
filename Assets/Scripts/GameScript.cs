@@ -14,6 +14,7 @@ public class GameScript : MonoBehaviour
     private int currentStarbucksIndex = 0;
     public bool done;
     public GameObject floor;
+    public AudioSource blop;
 
     // Kullanıcının tıklama yapıp yapamayacağını kontrol eden değişken
     public bool canClick = true;
@@ -46,6 +47,7 @@ public class GameScript : MonoBehaviour
         // Fare tıklamasını kontrol ediyoruz
         if (Input.GetMouseButtonDown(0))
         {
+            blop.Play();
             RaycastHit hit;
 
             // 1) Eğer animasyon sırasında (canClick = false) tıklanırsa:
