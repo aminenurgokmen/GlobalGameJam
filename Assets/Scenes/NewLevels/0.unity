@@ -927,6 +927,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Starbuck
       objectReference: {fileID: 0}
+    - target: {fileID: 3549478619125612713, guid: 5655d149bfb9d95448bdee0ad69ee730, type: 3}
+      propertyPath: m_Pitch
+      value: 2.58
+      objectReference: {fileID: 0}
     - target: {fileID: 5871863342796786605, guid: 5655d149bfb9d95448bdee0ad69ee730, type: 3}
       propertyPath: m_Enabled
       value: 1

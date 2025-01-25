@@ -160,6 +160,8 @@ public class GameScript : MonoBehaviour
                             starbucksCups[targetIndex]
                                 .GetComponent<StarbuckScript>()
                                 .Move();
+
+
                         }
                     }
                 }

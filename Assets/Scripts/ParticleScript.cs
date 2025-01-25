@@ -69,6 +69,8 @@ public class ParticleScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(5f);
         destroy = true;
         GetComponentInChildren<ParticleSystem>().Play();
+        GetComponent<AudioSource>().Play();
+
         // Destroy(gameObject, 2f);
 
     }

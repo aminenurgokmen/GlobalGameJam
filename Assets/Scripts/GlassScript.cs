@@ -72,7 +72,9 @@ public class GlassScript : MonoBehaviour
                     {
                         if (particle[i].GetComponent<ParticleScript>().onFloor)
                         {
+
                             StartCoroutine(particle[i].GetComponent<ParticleScript>().DestroyParticles());
+
                             dly = 0;
                             particle.Remove(particle[i]);
                             GetComponent<MeshRenderer>().enabled = false;
